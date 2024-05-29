@@ -11,10 +11,10 @@ export function Header() {
   return (
     <header className={styles.header}>
       <button className={styles.leftArrow} onClick={handleClick}>
-        <Image src="/images/header/left-arrow.png" alt="뒤로 가기" fill />
+        <Image src="/images/header/left-arrow.svg" alt="뒤로 가기" fill />
       </button>
       <div className={styles.imageBox}>
-        <Image src="/images/header/sub-logo.png" alt="로고" fill />
+        <Image src="/images/header/sub-logo.jpg" alt="로고" fill />
       </div>
     </header>
   );
