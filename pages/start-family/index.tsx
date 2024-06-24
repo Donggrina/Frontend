@@ -6,6 +6,7 @@ import styles from './index.module.scss';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { setCookie } from 'cookies-next';
+import SwitchScreen from '@/components/framer/switch-screen/switch-screen';
 
 export default function StartFamily() {
   const {
@@ -27,18 +28,20 @@ export default function StartFamily() {
   }, [isReady]);
 
   return (
-    <section className={styles.section}>
-      <div className={styles.titleBox}>
-        <SubTitle>너! 내 가족이 되라!</SubTitle>
-        <Title>가족만들기</Title>
-        <TitleText>
-          가족과 관련된 소개 문구
-          <br />
-          ex. 동그리나는 가족, 친구,연인과 함께 사용할 수 있는 플랫폼이에요. 동그리나에서 같이 사용할 가족을
-          만들어보세요.
-        </TitleText>
-      </div>
-      <LinkList />
-    </section>
+    <SwitchScreen>
+      <section className={styles.section}>
+        <div className={styles.titleBox}>
+          <SubTitle>너! 내 가족이 되라!</SubTitle>
+          <Title>가족만들기</Title>
+          <TitleText>
+            가족과 관련된 소개 문구
+            <br />
+            ex. 동그리나는 가족, 친구,연인과 함께 사용할 수 있는 플랫폼이에요. 동그리나에서 같이 사용할 가족을
+            만들어보세요.
+          </TitleText>
+        </div>
+        <LinkList />
+      </section>
+    </SwitchScreen>
   );
 }

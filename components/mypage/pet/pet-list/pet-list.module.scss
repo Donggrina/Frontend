@@ -1,0 +1,17 @@
+.petList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--disabled-color);
+  padding: 10px 0;
+  &:first-of-type {
+    padding: 0 0 10px 0;
+  }
+  &:last-of-type {
+    padding: 10px 0 0 0;
+    border: none;
+  }
+}
+.onlyOne.petList {
+  padding: 0;
+}

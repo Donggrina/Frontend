@@ -4,3 +4,22 @@
   padding: 277px 24px 0;
   gap: 127px;
 }
+.firstPage {
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 428px;
+  height: 100%;
+  background-color: #fff;
+  div {
+    position: relative;
+    width: 259px;
+    height: 277px;
+  }
+}

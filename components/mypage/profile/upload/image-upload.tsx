@@ -11,7 +11,7 @@ interface UploadProps {
 }
 
 export default function ImageUpload(props: UploadProps) {
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
   const { imageId, uploadRef, previewUrl, handlePreview } = useUpload({ handleModal, nickname: props.nickname });
 
   return (
@@ -34,7 +34,9 @@ export default function ImageUpload(props: UploadProps) {
         />
       </button>
       <ImageUploadModal
-        modal={Modal}
+        Modal={Modal}
+        isOpen={isOpen}
+        handleModal={handleModal}
         uploadRef={uploadRef}
         onPreview={handlePreview}
         imageId={imageId}

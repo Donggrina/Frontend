@@ -14,6 +14,8 @@ import useDiaryMutation from '@/hooks/queries/diary/use-diary-mutation';
 import { useRouter } from 'next/router';
 import disintegrateDateTime from '@/utils/disintegrate-date-time';
 import DiaryImages from '@/components/diaries/diary-images';
+import StoryListItemSkeleton from '@/components/skeleton/story/item/story-list-item-skeleton';
+import StoryCommentListSkeleton from '@/components/skeleton/story/comment/list/story-comment-list-skeleton';
 
 export async function getServerSideProps(context: GetServerSidePropsContext & { params: { diaryId: string } }) {
   const { diaryId } = context.params;
@@ -35,10 +37,6 @@ export default function DiaryById({ diaryId }: InferGetServerSidePropsType<typeo
   const weatherIcon = diaryQuery.data && WEATHER_TYPES.find((weather) => weather.label === diaryQuery.data.weather);
 
   const { year, month, date, day } = disintegrateDateTime(diaryQuery.data && diaryQuery.data.date);
-
-  if (diaryQuery.isPending) return <p>loading</p>;
-  if (diaryQuery.isError) return <p>Error: {diaryQuery.error.message}</p>;
-
   return (
     <main className={styles.outer}>
       <div className={styles.inner}>
@@ -48,7 +46,7 @@ export default function DiaryById({ diaryId }: InferGetServerSidePropsType<typeo
               {year}년 {month}월 {date}일 {day}
             </span>
           </p>
-          {diaryQuery.data.isMyDiary && (
+          {diaryQuery.data?.isMyDiary && (
             <div className={styles.kebab}>
               <DropdownMenu value={{ isOpen, onCloseToggle, onOpenToggle }}>
                 <DropdownMenu.Kebab />
@@ -63,32 +61,43 @@ export default function DiaryById({ diaryId }: InferGetServerSidePropsType<typeo
           )}
         </section>
 
-        <section className={styles.profiles}>
-          <Profile
-            author={diaryQuery.data.author}
-            authorImage={diaryQuery.data.authorImage}
-            petImages={diaryQuery.data.petImages}
-          />
-          {weatherIcon && <Image src={weatherIcon.selectedIcon} alt={weatherIcon.label} width={24} height={24} />}
-        </section>
+        {diaryQuery.isLoading ? (
+          <div>
+            <StoryListItemSkeleton />
+            <StoryCommentListSkeleton />
+          </div>
+        ) : diaryQuery.isError ? (
+          <p>Error: {diaryQuery.error.message}</p>
+        ) : diaryQuery.data ? (
+          <>
+            <section className={styles.profiles}>
+              <Profile
+                author={diaryQuery.data.author}
+                authorImage={diaryQuery.data.authorImage}
+                petImages={diaryQuery.data.petImages}
+              />
+              {weatherIcon && <Image src={weatherIcon.selectedIcon} alt={weatherIcon.label} width={24} height={24} />}
+            </section>
 
-        {!!diaryQuery.data.contentImages.length && <DiaryImages images={diaryQuery.data.contentImages} />}
+            {!!diaryQuery.data.contentImages.length && <DiaryImages images={diaryQuery.data.contentImages} />}
 
-        <section className={styles.content}>{diaryQuery.data.content}</section>
+            <section className={styles.content}>{diaryQuery.data.content}</section>
 
-        <Response
-          commentCount={diaryQuery.data.comments.length}
-          favoriteCount={diaryQuery.data.favoriteCount}
-          favoriteState={diaryQuery.data.favoriteState}
-        />
+            <Response
+              commentCount={diaryQuery.data.comments.length}
+              favoriteCount={diaryQuery.data.favoriteCount}
+              favoriteState={diaryQuery.data.favoriteState}
+            />
 
-        <div className={styles.line}></div>
+            <div className={styles.line}></div>
 
-        <div>
-          {diaryQuery.data.comments.map((comment) => (
-            <DiaryComment key={comment.commentId} comment={comment} diaryId={diaryId} />
-          ))}
-        </div>
+            <div>
+              {diaryQuery.data.comments.map((comment) => (
+                <DiaryComment key={comment.commentId} comment={comment} diaryId={diaryId} />
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
 
       <DiaryCommentForm mutateFn={commentMutation.mutate} placeholder="댓글 입력..." />

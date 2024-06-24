@@ -1,7 +1,6 @@
 import Title from '@/components/common/title/title';
 import { useRouter } from 'next/router';
 import EntryForm from '@/components/start-pet/entry-form/entry-form';
-import Button from '@/components/common/button/button';
 import { usePetsModifyQuery } from '@/hooks/queries/my/pets/usePostPetsQueries';
 import { FieldValues } from 'react-hook-form';
 import { imageUpload } from '@/api/image-api';
@@ -58,11 +57,7 @@ export default function ModifyPetForm({ routeUrl }: ModifyPetFormType) {
   return (
     <section style={{ padding: '126px 24px 51px' }}>
       <Title>반려동물 수정</Title>
-      <EntryForm onSubmit={handleSubmit} defaultData={defaultValue}>
-        <Button type="submit" className="primary" round>
-          반려동물 수정하기
-        </Button>
-      </EntryForm>
+      <EntryForm onSubmit={handleSubmit} defaultData={defaultValue} buttonText="반려동물 수정하기" />
     </section>
   );
 }

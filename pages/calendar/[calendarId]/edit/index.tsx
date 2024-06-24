@@ -16,6 +16,7 @@ import usePetsQuery from '@/hooks/queries/calendar/use-pets-query';
 import useTodoPutMutation from '@/hooks/queries/calendar/use-todo-put-mutation';
 import { useRouter } from 'next/router';
 import CalendarCategory from '@/components/calendar-monthly/calendar-category';
+import { AnimatePresence } from 'framer-motion';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const {
@@ -76,7 +77,7 @@ export default function Edit({ todo }: InferGetServerSidePropsType<typeof getSer
     );
   };
 
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
 
   const handleCloseModal = () => {
     handleModal(false);
@@ -156,9 +157,13 @@ export default function Edit({ todo }: InferGetServerSidePropsType<typeof getSer
           수정하기
         </button>
       </form>
-      <Modal>
-        <CalendarModal updateDateTime={updateDateTime} onClose={handleCloseModal} />
-      </Modal>
+      <AnimatePresence>
+        {isOpen && (
+          <Modal>
+            <CalendarModal updateDateTime={updateDateTime} onClose={handleCloseModal} />
+          </Modal>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

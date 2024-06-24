@@ -13,7 +13,7 @@ interface FileInputType {
 
 export default function FileInput({ id, name, control }: FileInputType) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
 
   const handleButtonClick = () => {
     handleModal(true);
@@ -42,7 +42,13 @@ export default function FileInput({ id, name, control }: FileInputType) {
               />
               <FileButtonSVG />
             </button>
-            <ImageModal Modal={Modal} handleModal={handleModal} fileInputRef={fileInputRef} field={field} />
+            <ImageModal
+              Modal={Modal}
+              handleModal={handleModal}
+              fileInputRef={fileInputRef}
+              field={field}
+              isOpen={isOpen}
+            />
           </>
         )}
       />

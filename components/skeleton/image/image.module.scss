@@ -1,0 +1,26 @@
+@import '../skeleton-animation.module.scss';
+
+.skeletonContainer {
+  display: flex;
+  gap: 15px;
+}
+.skeletonImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.skeletonProfile {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  @include skeleton-animation;
+}
+
+.skeletonName {
+  height: 17px;
+  width: 25px;
+  border-radius: 10px;
+  @include skeleton-animation;
+}

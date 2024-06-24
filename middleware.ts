@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { MiddlewareData } from './utils/constants/middleware-data';
 
-const { PROTECTED_PAGES, PUBLIC_PAGES, NON_FAMILY_PAGES, FAMILY_PAGES, MATCHER_PAGES } = new MiddlewareData();
+const { PROTECTED_PAGES, PUBLIC_PAGES, NON_FAMILY_PAGES, FAMILY_PAGES } = new MiddlewareData();
 
 export default function middleware(request: NextRequest) {
   const { cookies, nextUrl } = request;
@@ -59,5 +59,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: MATCHER_PAGES,
+  matcher: '/:path*',
 };

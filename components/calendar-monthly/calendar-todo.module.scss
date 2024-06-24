@@ -1,7 +1,6 @@
 .outer {
   display: flex;
   align-items: center;
-  margin-top: 15px;
   gap: 14px;
   padding: 20px;
   border: 1px solid var(--main-color);
@@ -14,10 +13,9 @@
   &:hover {
     background-color: #fafafa;
   }
-
-  &:last-of-type {
-    margin-bottom: 50px;
-  }
+  // &:last-of-type {
+  //   margin-bottom: 50px;
+  // }
 }
 
 .category {

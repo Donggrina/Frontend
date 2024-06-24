@@ -10,7 +10,7 @@ interface ProfileInputProps {
 }
 
 export default function ProfileInput(props: ProfileInputProps) {
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
   const onCloseModal = () => handleModal(false);
 
   return (
@@ -19,7 +19,13 @@ export default function ProfileInput(props: ProfileInputProps) {
       <button onClick={() => handleModal(true)}>
         <Image src="images/edit-gray-icon.svg" alt="닉네임 변경하기" width={17} height={17} />
       </button>
-      <NicknameModal modal={Modal} nickname={props.nickname} imageId={props.imageId} onCloseModal={onCloseModal} />
+      <NicknameModal
+        modal={Modal}
+        nickname={props.nickname}
+        imageId={props.imageId}
+        onCloseModal={onCloseModal}
+        isOpen={isOpen}
+      />
     </div>
   );
 }

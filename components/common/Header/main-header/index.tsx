@@ -7,13 +7,25 @@ export default function MainHeader() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.back();
+    router.push('/mypage');
   };
 
   const handleSearchClick = () => {
-    console.log('검색페이지 url 필요');
-    // router.push() : 검색페이지 url 필요
+    let searchUrl = '';
+    if (router.pathname.startsWith('/family')) {
+      searchUrl = '/family/search';
+    } else if (router.pathname.startsWith('/growth')) {
+      searchUrl = '/growth/search';
+    } else if (router.pathname.startsWith('/calendar')) {
+      searchUrl = '/calendar/search';
+    } else if (router.pathname.startsWith('/diaries')) {
+      searchUrl = '/diaries/search';
+    }
+    if (searchUrl) {
+      router.push(searchUrl);
+    }
   };
+
   return (
     <header className={styles.header}>
       <button className={`${styles.leftIcon} ${styles.mypageIcon}`} onClick={handleClick}>

@@ -7,7 +7,7 @@ interface RenameType {
 }
 
 export default function FamilyRenameButton({ name }: RenameType) {
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
   const handleOpen = () => {
     handleModal(true);
   };
@@ -16,7 +16,7 @@ export default function FamilyRenameButton({ name }: RenameType) {
       <Button type="button" className="secondary" round onClick={handleOpen}>
         가족 이름 변경
       </Button>
-      <RenameModal Modal={Modal} handleModal={handleModal} name={name} />
+      <RenameModal isOpen={isOpen} Modal={Modal} handleModal={handleModal} name={name} />
     </>
   );
 }

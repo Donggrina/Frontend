@@ -5,7 +5,7 @@ import {
   KIND_OPTION,
   NEUTERED_OPTION,
 } from '@/utils/constants/entry-data';
-import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import FileImage from '../file-image/file-image';
 import FileInput from '../file-input/file-input';
@@ -13,13 +13,15 @@ import Form from '@/components/common/Form';
 import Radio from '@/components/common/radio/radio';
 import styles from './entry-form.module.scss';
 import { PetDetailsData } from '@/types/my-page/pet/detsils';
+import Button from '@/components/common/button/button';
 
 interface EntryFormType {
   onSubmit: (data: FieldValues) => Promise<void>;
   defaultData?: PetDetailsData;
+  buttonText: string;
 }
 
-export default function EntryForm({ onSubmit, defaultData, children }: PropsWithChildren<EntryFormType>) {
+export default function EntryForm({ onSubmit, defaultData, buttonText }: EntryFormType) {
   const [speciesOPtion, setSpeciesOption] = useState<string[]>();
   const [selectDisabled, setSelectDisabled] = useState<boolean>();
   const methods = useForm<FieldValues>({
@@ -37,15 +39,20 @@ export default function EntryForm({ onSubmit, defaultData, children }: PropsWith
     },
     mode: 'onBlur',
   });
-  const { control, handleSubmit, watch, setValue } = methods;
+  const { control, handleSubmit, watch, setValue, formState } = methods;
+  const buttonClassCondition = formState.isValid ? 'primary' : 'disabled';
+
   const formSubmit: SubmitHandler<FieldValues> = async (data) => {
     onSubmit(data);
   };
+
   const type = watch('type');
   const prevType = useRef();
+
   useEffect(() => {
     prevType.current = type;
   }, []);
+
   useEffect(() => {
     const isDog = type === '강아지';
     const isCat = type === '고양이';
@@ -102,7 +109,11 @@ export default function EntryForm({ onSubmit, defaultData, children }: PropsWith
           <Radio options={NEUTERED_OPTION} control={control} name="isNeutered" />
         </li>
       </ul>
-      <div className={styles.buttonBox}>{children}</div>
+      <div className={styles.buttonBox}>
+        <Button type="submit" className={buttonClassCondition} round>
+          {buttonText}
+        </Button>
+      </div>
     </Form>
   );
 }

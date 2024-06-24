@@ -7,7 +7,7 @@ import OpenSVG from '@/public/images/mypage/plus-circle.svg';
 
 export default function AddFamily() {
   const myFamilyApi = new MyFamilyApi();
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
   const [code, setCode] = useState('');
   const handleGetCode = async () => {
     try {
@@ -27,7 +27,7 @@ export default function AddFamily() {
       <button className={styles.openModal} onClick={openModal} title="가족 초대 모달 열기">
         <OpenSVG />
       </button>
-      <Share Modal={Modal} handleModal={handleModal} code={code} />
+      <Share Modal={Modal} handleModal={handleModal} code={code} isOpen={isOpen} />
     </div>
   );
 }

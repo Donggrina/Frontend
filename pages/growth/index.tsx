@@ -8,6 +8,8 @@ import { useGetGrotwthByDateQuery } from '@/hooks/queries/growth/use-get-growth-
 import { convertToLocalDate } from '@/utils/convert-local-date';
 import useCalenderDateStore from '@/store/calendar.store';
 import GrowthListSkeleton from '@/components/skeleton/growth/growth-list';
+import { motion } from 'framer-motion';
+import { horizontalVariants } from '@/components/framer';
 
 export default function GrowthPage() {
   const calenderStore = useCalenderDateStore();
@@ -18,7 +20,6 @@ export default function GrowthPage() {
   const localDate = convertToLocalDate({ year, month, day: date });
 
   const { data: growthLists, isLoading } = useGetGrotwthByDateQuery(localDate);
-
   return (
     <>
       <Calendar value={calenderStore}>
@@ -31,31 +32,39 @@ export default function GrowthPage() {
         <p className={styles.date}>
           {month}월 {date}일 {day}
         </p>
-        <div className={styles.listContainer}>
-          {isLoading ? (
-            <div className={styles.skeletonContainer}>
-              <GrowthListSkeleton />
-              <GrowthListSkeleton />
-              <GrowthListSkeleton />
-            </div>
-          ) : (
-            growthLists?.data.map((growth, index) => {
+        {isLoading ? (
+          <div className={styles.skeletonContainer}>
+            <GrowthListSkeleton />
+            <GrowthListSkeleton />
+            <GrowthListSkeleton />
+          </div>
+        ) : growthLists ? (
+          <div className={styles.listContainer}>
+            {growthLists.data.map((growth, index) => {
               return (
-                <GrowthList
-                  key={index}
-                  nickname={growth.nickname}
-                  petImage={growth.petProfileImageUrl}
-                  writerImage={growth.writerProfileImageUrl}
-                  category={growth.category}
-                  text={growth.content}
-                  isMine={growth.isMine}
-                  petName={growth.petName}
-                  id={growth.id}
-                />
+                <motion.div
+                  variants={horizontalVariants}
+                  key={growth.id}
+                  custom={index}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <GrowthList
+                    key={index}
+                    nickname={growth.nickname}
+                    petImage={growth.petProfileImageUrl}
+                    writerImage={growth.writerProfileImageUrl}
+                    category={growth.category}
+                    text={growth.content}
+                    isMine={growth.isMine}
+                    petName={growth.petName}
+                    id={growth.id}
+                  />
+                </motion.div>
               );
-            })
-          )}
-        </div>
+            })}
+          </div>
+        ) : null}
         <AddButton href={'/growth/create'} />
       </div>
     </>

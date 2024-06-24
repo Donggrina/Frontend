@@ -1,0 +1,44 @@
+@import '../../skeleton-animation.module.scss';
+
+.skeletonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px;
+  background: var(--white);
+  border-radius: 10px;
+  border: 1px solid;
+  border-color: var(--main-color);
+  margin-bottom: 12px;
+}
+
+.skeletonHeader {
+  height: 20px;
+  width: 163px;
+  @include skeleton-animation;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.skeletonContent {
+  height: 20px;
+  width: 200px;
+  @include skeleton-animation;
+  border-radius: 10px;
+  margin-bottom: 42px;
+}
+
+.skeletonBody {
+  height: 20px;
+  width: 82px;
+  @include skeleton-animation;
+  border-radius: 10px;
+}
+
+.skeletonImage {
+  height: 79px;
+  width: 79px;
+  @include skeleton-animation;
+  border-radius: 10px;
+  margin-top: 33px;
+}

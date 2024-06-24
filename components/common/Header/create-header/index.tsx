@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export default function CreateHeader({ headerName }: HeaderProps) {
   const router = useRouter();
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
   const handleOpen = () => {
     if (headerName) {
       handleModal(true);
@@ -40,7 +40,7 @@ export default function CreateHeader({ headerName }: HeaderProps) {
           등록
         </button> */}
       </header>
-      <WarningModal Modal={Modal} handleModal={handleModal} />
+      <WarningModal Modal={Modal} handleModal={handleModal} isOpen={isOpen} />
     </>
   );
 }

@@ -1,19 +1,22 @@
 import ShareModal from '@/components/start-pet/finish/share-modal/share-modal';
-import { PropsWithChildren, ReactNode } from 'react';
+import { ModalType } from '@/hooks/use-modal';
+import { AnimatePresence } from 'framer-motion';
 
-interface ShareType {
-  Modal: ({ children }: PropsWithChildren) => ReactNode;
-  handleModal: (isOpen: boolean) => void;
+interface ShareType extends ModalType {
   code: string;
 }
 
-export default function Share({ Modal, handleModal, code }: ShareType) {
+export default function Share({ Modal, handleModal, code, isOpen }: ShareType) {
   const closeModal = () => {
     handleModal(false);
   };
   return (
-    <Modal>
-      <ShareModal closeModal={closeModal} code={code} />
-    </Modal>
+    <AnimatePresence>
+      {isOpen && (
+        <Modal>
+          <ShareModal closeModal={closeModal} code={code} />
+        </Modal>
+      )}
+    </AnimatePresence>
   );
 }

@@ -6,11 +6,12 @@ import Script from 'next/script';
 import { useGetFamilyAllQuery } from '@/hooks/queries/my/family/useGetFamilyQueries';
 import FamilySkeleton from '@/components/skeleton/mypage/family/family-skeleton';
 import FamilyButtonSkeleton from '@/components/skeleton/mypage/family/family-button-skeleton';
+import SwitchScreen from '@/components/framer/switch-screen/switch-screen';
 
 export default function MypageFamily() {
   const { data, isLoading } = useGetFamilyAllQuery();
   return (
-    <>
+    <SwitchScreen>
       <section className={styles.section}>
         <div className={styles.familyContainer}>
           <AddFamily />
@@ -23,6 +24,6 @@ export default function MypageFamily() {
         integrity={process.env.NEXT_PUBLIC_KAKAO_INTEGRITY_VALUE}
         crossOrigin="anonymous"
       ></Script>
-    </>
+    </SwitchScreen>
   );
 }

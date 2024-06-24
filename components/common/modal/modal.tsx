@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import styles from './modal.module.scss';
 import { MouseEvent, ReactNode } from 'react';
 
@@ -16,10 +17,24 @@ export default function Modal({ children, onClose }: ModalCommonProps) {
   };
 
   return (
-    <div className={styles.outer} onClick={handleClose}>
-      <div className={styles.inner} onClick={handleClick}>
+    <motion.div
+      key="outer"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.outer}
+      onClick={handleClose}
+    >
+      <motion.div
+        key="inner"
+        initial={{ scale: 0, x: '-50%', y: '-50%' }}
+        animate={{ scale: 1, x: '-50%', y: '-50%' }}
+        exit={{ scale: 0, x: '-50%', y: '-50%' }}
+        className={styles.inner}
+        onClick={handleClick}
+      >
         {children}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

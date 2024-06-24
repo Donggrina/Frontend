@@ -31,6 +31,7 @@ body {
 
 #__container {
   max-width: var(--global-width);
+  overflow-x: hidden;
   width: 100%;
   height: 100vh;
   margin: 0 auto;

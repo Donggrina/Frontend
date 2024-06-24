@@ -2,7 +2,6 @@ import Title from '@/components/common/title/title';
 import EntryForm from '@/components/start-pet/entry-form/entry-form';
 import { imageUpload } from '@/api/image-api';
 import { FieldValues } from 'react-hook-form';
-import Button from '@/components/common/button/button';
 import { usePetsAddQuery } from '@/hooks/queries/my/pets/usePostPetsQueries';
 import { useRouter } from 'next/router';
 
@@ -47,11 +46,7 @@ export default function AddPetForm({ routeUrl }: AddPetFormType) {
   return (
     <section style={{ padding: '126px 24px 51px' }}>
       <Title>반려동물 추가</Title>
-      <EntryForm onSubmit={handleSubmit}>
-        <Button type="submit" className="primary" round>
-          반려동물 추가하기
-        </Button>
-      </EntryForm>
+      <EntryForm onSubmit={handleSubmit} buttonText="반려동물 추가하기" />
     </section>
   );
 }

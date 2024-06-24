@@ -3,7 +3,7 @@ import useModal from '@/hooks/use-modal';
 import DeleteModal from './delete-modal/delete-modal';
 
 export default function FamilyDeleteButton() {
-  const [Modal, handleModal] = useModal();
+  const [Modal, handleModal, isOpen] = useModal();
   const handleOpen = () => {
     handleModal(true);
   };
@@ -12,7 +12,7 @@ export default function FamilyDeleteButton() {
       <Button type="button" className="tertiary" round onClick={handleOpen}>
         가족 폐쇄
       </Button>
-      <DeleteModal Modal={Modal} handleModal={handleModal} />
+      <DeleteModal isOpen={isOpen} Modal={Modal} handleModal={handleModal} />
     </>
   );
 }
